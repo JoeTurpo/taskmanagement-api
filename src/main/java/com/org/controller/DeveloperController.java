@@ -19,32 +19,38 @@ import java.util.List;
 public class DeveloperController {
     private final DeveloperService developerService;
 
+    //Crea developer
     @PostMapping
     public ResponseEntity<DeveloperResponse> create(@Valid @RequestBody DeveloperRequest request){
         DeveloperResponse response = developerService.create(request);
         return ResponseEntity.status(201).body(response);
     }
 
+    //Obtiene todos los developers
     @GetMapping
     public ResponseEntity<List<DeveloperResponse>> getAll( ){
         return ResponseEntity.ok(developerService.findAll());
     }
 
+    //Obtiene developers paginados
     @GetMapping("/paginated")
     public ResponseEntity<Page<DeveloperResponse>> getPaginated(Pageable pageable) {
         return ResponseEntity.ok(developerService.findPaginated(pageable));
     }
 
+    //Obtiene developer por Id
     @GetMapping("/{id}")
     public ResponseEntity<DeveloperResponse> getById(@PathVariable Long id){
         return ResponseEntity.ok(developerService.findById(id));
     }
 
+    //Actualiza datos de developer mediante Id
     @PutMapping("/{id}")
     public ResponseEntity<DeveloperResponse> update(@PathVariable Long id, @Valid @RequestBody DeveloperRequest request){
         return ResponseEntity.ok(developerService.update(id, request));
     }
 
+    //Elimina developer por Id
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         developerService.delete(id);
